@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% set active = 'settings' %}
+{% block content %}
+<h1>Settings</h1>
+
+<form method="POST" action="/settings">
+    <div class="card">
+        <h2>AI Model</h2>
+        <label>Model Name</label>
+        <input type="text" name="model" value="{{ config.ai.model }}">
+
+        <h2>Behavior</h2>
+        <div class="row">
+            <div>
+                <label>Cooldown (seconds)</label>
+                <input type="number" name="cooldown" value="{{ config.behavior.cooldown }}">
+            </div>
+            <div>
+                <label>Join Conversation Chance (0-1)</label>
+                <input type="number" step="0.01" name="join_chance" value="{{ config.behavior.join_conversation_chance }}">
+            </div>
+        </div>
+        <div class="row">
+            <div>
+                <label>Typing Time Min (seconds)</label>
+                <input type="number" name="typing_min" value="{{ config.behavior.typing_time_min }}">
+            </div>
+            <div>
+                <label>Typing Time Max (seconds)</label>
+                <input type="number" name="typing_max" value="{{ config.behavior.typing_time_max }}">
+            </div>
+        </div>
+        <div class="row">
+            <div>
+                <label>Max Context Messages</label>
+                <input type="number" name="max_context" value="{{ config.behavior.max_context }}">
+            </div>
+            <div></div>
+        </div>
+
+        <h2>Channels</h2>
+        <label>Channel IDs (comma-separated)</label>
+        <input type="text" name="channels" value="{{ config.bot.channels|join(', ') }}">
+    </div>
+
+    <button type="submit">Save Settings</button>
+</form>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% set active = 'qa' %}
+{% block content %}
+<h1>Q&A Pairs</h1>
+
+<div class="row" style="margin-bottom:16px">
+    <form method="GET" action="/qa" style="flex-direction:row;gap:8px">
+        <select name="channel" style="max-width:200px">
+            <option value="">All Channels</option>
+            {% for ch in channels %}
+            <option value="{{ ch }}" {% if selected_channel == ch|string %}selected{% endif %}>Channel {{ ch }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="btn btn-secondary">Filter</button>
+    </form>
+</div>
+
+<div class="card">
+    <h2>Add Q&A Pair</h2>
+    <form method="POST" action="/qa/add">
+        <input type="text" name="question" placeholder="Question..." required>
+        <input type="text" name="answer" placeholder="Answer..." required>
+        <div class="row">
+            <select name="channel_id" style="max-width:160px">
+                <option value="">All Channels</option>
+                {% for ch in channels %}
+                <option value="{{ ch }}">Channel {{ ch }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Add</button>
+        </div>
+    </form>
+</div>
+
+{% if pairs %}
+<table>
+    <thead>
+        <tr>
+            <th>Question</th>
+            <th>Answer</th>
+            <th>Channel</th>
+            <th>Source</th>
+            <th>Uses</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for pair in pairs %}
+        <tr>
+            <td>{{ pair[1][:60] }}{% if pair[1]|length > 60 %}...{% endif %}</td>
+            <td>{{ pair[2][:60] }}{% if pair[2]|length > 60 %}...{% endif %}</td>
+            <td>{% if pair[5] %}<span class="badge badge-blue">{{ pair[5] }}</span>{% else %}All{% endif %}</td>
+            <td>{{ pair[3] }}</td>
+            <td>{{ pair[4] }}</td>
+            <td>
+                <form method="POST" action="/qa/delete/{{ pair[0] }}">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<div class="empty">No Q&A pairs found</div>
+{% endif %}
+{% endblock %}

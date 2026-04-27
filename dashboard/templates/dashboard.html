@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% set active = 'dashboard' %}
+{% block content %}
+<h1>Dashboard</h1>
+
+<div class="grid">
+    <div class="card stat">
+        <div class="num">{{ config.bot.channels|length }}</div>
+        <div class="label">Channels</div>
+    </div>
+    <div class="card stat">
+        <div class="num">{{ kb_count }}</div>
+        <div class="label">Knowledge Facts</div>
+    </div>
+    <div class="card stat">
+        <div class="num">{{ qa_count }}</div>
+        <div class="label">Q&A Pairs</div>
+    </div>
+    <div class="card stat">
+        {% if paused %}
+        <div class="num" style="color:#ca8a04">Paused</div>
+        {% else %}
+        <div class="num" style="color:#16a34a">Active</div>
+        {% endif %}
+        <div class="label">Bot Status</div>
+    </div>
+</div>
+
+<div class="row" style="margin-bottom:16px">
+    <form method="POST" action="/toggle-pause">
+        {% if paused %}
+        <button type="submit" class="btn" style="width:100%">Resume Bot</button>
+        {% else %}
+        <button type="submit" class="btn btn-danger" style="width:100%">Pause Bot</button>
+        {% endif %}
+    </form>
+</div>
+
+<h2>Configuration</h2>
+<div class="card" style="font-size:13px;">
+    <div class="row" style="margin-bottom:8px">
+        <span style="color:#888">Model</span>
+        <span>{{ config.ai.model }}</span>
+    </div>
+    <div class="row" style="margin-bottom:8px">
+        <span style="color:#888">Cooldown</span>
+        <span>{{ config.behavior.cooldown }}s</span>
+    </div>
+    <div class="row" style="margin-bottom:8px">
+        <span style="color:#888">Join Chance</span>
+        <span>{{ (config.behavior.join_conversation_chance * 100)|int }}%</span>
+    </div>
+    <div class="row" style="margin-bottom:8px">
+        <span style="color:#888">Channels</span>
+        <span>{{ config.bot.channels|join(', ') }}</span>
+    </div>
+    <div class="row">
+        <span style="color:#888">Daily Reset</span>
+        <span>{% if config.behavior.daily_reset %}Enabled{% else %}Disabled{% endif %}</span>
+    </div>
+</div>
+
+<h2>Recent Logs</h2>
+<div class="card">
+    <pre>{{ recent_logs }}</pre>
+</div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% set active = 'instructions' %}
+{% block content %}
+<h1>AI Instructions</h1>
+
+<form method="POST" action="/instructions">
+    <div class="card">
+        <h2>Bot Instructions (System Prompt)</h2>
+        <label>This is the main system prompt that defines the bot's personality and behavior</label>
+        <textarea name="instructions" rows="20">{{ instructions }}</textarea>
+    </div>
+
+    <div class="card">
+        <h2>Decision Prompt</h2>
+        <label>Prompt used to decide whether the bot should respond to a message. Use {bot_id}, {context}, {message}, {author} as placeholders.</label>
+        <textarea name="decision_prompt" rows="16">{{ decision_prompt }}</textarea>
+    </div>
+
+    <button type="submit">Save Instructions</button>
+</form>
+{% endblock %}

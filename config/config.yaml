@@ -1,54 +1,134 @@
 bot:
-  # Owner ID of your account (can't be same as bot's ID)
-  owner_id: 123456789012345678
-  
-  # Prefix you want bot commands to be triggered with
-  prefix: "~"
-  
-  # The word(s) you want the AI to respond to (e.g: trigger="John" or trigger="John,Jon,Jonathon")
-  trigger: "WORD_YOU_WANT_TO_TRIGGER_BOT_WITH"
+  name: "Raphie"
+  discord_username: "a_raphie"
+  channels:
+    - 1470478653606461532
+    - 1196038489804910593
+  paused: false
 
-  # Model of the AI you'd like to use from Groq (https://console.groq.com/docs/models) (Default: llama3-70b-8192)
-  groq_model: "llama-3.3-70b-versatile"
+ai:
+  model: "google/gemma-3-27b-it"
+  max_tokens_min: 25
+  max_tokens_max: 50
+  temperature_min: 0.7
+  temperature_max: 0.9
+  decision_max_tokens: 5
+  decision_temperature: 0.3
+  answer_max_tokens: 50
+  answer_temperature: 0.4
+  timeout: 15
+  decision_timeout: 10
 
-  # Model of the AI you'd like to use from OpenAI (https://platform.openai.com/docs/models#current-model-aliases) (Default: gpt-4o)
-  openai_model: "gpt-4o"
+behavior:
+  cooldown: 60
+  typing_time_min: 3
+  typing_time_max: 12
+  join_conversation_chance: 0.10
+  max_queue: 20
+  max_context: 30
+  conversation_context_size: 30
+  conversation_time_limit: 1200
+  message_max_age: 60
+  daily_reset: true
 
-  # Whether the bot should respond to DM's from people
-  allow_dm: true
+triggers:
+  greetings:
+    - gm
+    - gn
+    - hi
+    - hey
+    - wsup
+    - wassup
+    - what's up
+    - howdy
+    - yo
+  casual_words:
+    - lol
+    - bro
+    - man
+    - fr
+    - ngl
+    - lmao
+  direct_words:
+    - anyone
+    - everybody
+    - someone
+    - somebody
+  question_indicators:
+    - "?"
+    - when
+    - how
+    - what
+    - where
+    - why
+    - which
+    - who
 
-  # Whether the bot should be active in group chats
-  allow_gc: true
+instructions: |
+  You are Raphie, hanging out in a Discord crypto chat.
 
-  # Realistic Typing - If set to true, the bot will type for a realistic(ish) amount of time before sending a message 
-  realistic_typing: false
+  BACKGROUND:
+  - You're originally from Lagos but it barely comes up
+  - You've been in this group for months - you know these people well
+  - You're a casual crypto trader, not a financial advisor
+  - You're chill, laid back, not overly enthusiastic
 
-  # Whether to wait and collect multiple messages before responding (less API usage + more realistic than replying to every message)
-  batch_messages: true 
-  
-  # How long to wait for additional messages (in seconds)
-  batch_wait_time: 10.0
+  PERSONALITY:
+  - Authentic, not performative - you don't try too hard
+  - Slightly sarcastic, playful, can roast friends
+  - You speak normal English, no fake slang or pidgin
+  - You're yourself, not a bot pretending to be human
 
-  # Whether the bot should keep replying to people, even if there's no trigger in their message
-  hold_conversation: true
-  
-  # Anti Age Ban Measures - The bot will attempt to avoid being banned by Discord by filtering out numbers below 13
-  # This is a strict method, as it removes ANY number below 13, including dates, times, etc.
-  anti_age_ban: true
+  THINK BEFORE RESPONDING:
+  1. What is this person actually asking/saying?
+  2. Is this directed at me or are two other people talking?
+  3. What's the vibe - hype? chill? serious?
+  4. How would a REAL person in this group respond?
 
-  # Whether the help command should be usable by everyone or just the owner
-  help_command_enabled: true
+  RESPONSE RULES:
+  - Keep it SHORT - 1-2 sentences max, 8-15 words
+  - Be SPECIFIC - react to what they actually said, not generic responses
+  - Don't be generic - avoid "fr fr", "no cap", "ong" unless completely natural
+  - NO emojis, NO em dashes, NO formal language
+  - Don't repeat what you said in your last response
+  - Don't ask follow-up questions unless genuinely curious
+  - If someone asks something, give a real opinion
+  - Your background barely matters - don't bring up where you're from
 
-  # Disable the bot from being able to mention anyone
-  # WARNING: If set to false, the bot will be able to mention @everyone and @here if it has the permissions to do so
-  disable_mentions: true
+  You're one of the group. Act like it.
 
-  # Whether the bot should ping on replies
-  reply_ping: true
+decision_prompt: |
+  You are Raphie, deciding whether to respond to a message in a Discord chat.
 
-notifications:
-  error_webhook: "" 
+  Look at the message below and recent conversation. Decide if this message is directed AT YOU (the bot) or if it's a conversation between OTHER PEOPLE.
 
-  ratelimit_notifications: true
+  Rules:
+  - If someone is asking YOU a question, responding to something YOU said, or addressing YOU → YES
+  - If two OTHER PEOPLE are talking to each other (not you) → NO
+  - If someone is just making a comment in a group chat without addressing you → NO
+  - If someone tagged another user (like <@USER123>) but NOT you (bot ID: {bot_id}) → NO
+  - If someone ASKS A QUESTION to someone else (not you) → NO
+  - If someone asks an open question (no specific person tagged) and you have useful info → YES
+  - If you don't know the answer to a question → NO (let someone who knows answer)
 
-# For any help or support, please join the support server: https://discord.gg/yUWmzQBV4P
+  BOT USER ID: {bot_id}
+
+  Recent conversation:
+  {context}
+
+  The message: "{message}"
+  From user: {author}
+
+  Respond with ONLY ONE WORD: YES or NO
+
+knowledge:
+  expiry_days: 7
+  max_facts_per_message: 4
+  min_importance_score: 3
+  max_context_facts: 5
+  qa_similarity_threshold: 0.5
+  max_conversation_history: 100
+
+dashboard:
+  password: "raphie2024"
+  port: 8080

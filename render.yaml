@@ -1,20 +1,14 @@
 services:
   - type: web
-    name: discord-bot-ernxto
+    name: raphie-bot
     runtime: python
     plan: free
     buildCommand: pip install -r requirements.txt
-    startCommand: python3 server.py
+    startCommand: python3 run.py
     envVars:
       - key: DISCORD_TOKEN
         sync: false
       - key: OPENROUTER_API_KEY
-        sync: false
-      - key: TARGET_CHANNEL
-        value: "1470478653606461532"
-        sync: false
-      - key: CHECK_INTERVAL
-        value: "30"
         sync: false
     healthCheckPath: /health
 

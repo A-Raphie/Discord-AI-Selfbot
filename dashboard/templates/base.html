@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Raphie Bot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, system-ui, sans-serif; background: #0f0f0f; color: #e0e0e0; min-height: 100vh; }
+        nav { background: #1a1a1a; padding: 12px 24px; display: flex; align-items: center; gap: 24px; border-bottom: 1px solid #333; }
+        nav a { color: #888; text-decoration: none; font-size: 14px; }
+        nav a:hover, nav a.active { color: #fff; }
+        nav .brand { color: #fff; font-weight: 600; font-size: 16px; margin-right: auto; }
+        .container { max-width: 900px; margin: 24px auto; padding: 0 24px; }
+        h1 { font-size: 20px; margin-bottom: 16px; color: #fff; }
+        h2 { font-size: 16px; margin: 16px 0 8px; color: #ccc; }
+        .card { background: #1a1a1a; border: 1px solid #333; border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 16px; }
+        .stat { text-align: center; }
+        .stat .num { font-size: 28px; font-weight: 700; color: #fff; }
+        .stat .label { font-size: 12px; color: #888; margin-top: 4px; }
+        form { display: flex; flex-direction: column; gap: 12px; }
+        label { font-size: 13px; color: #888; }
+        input, textarea, select { background: #0f0f0f; border: 1px solid #333; color: #e0e0e0; padding: 8px 12px; border-radius: 6px; font-size: 14px; }
+        textarea { min-height: 200px; font-family: monospace; font-size: 13px; resize: vertical; }
+        input:focus, textarea:focus { outline: none; border-color: #555; }
+        button, .btn { background: #2563eb; color: #fff; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 14px; text-decoration: none; display: inline-block; }
+        button:hover, .btn:hover { background: #1d4ed8; }
+        .btn-danger { background: #dc2626; }
+        .btn-danger:hover { background: #b91c1c; }
+        .btn-sm { padding: 4px 10px; font-size: 12px; }
+        .btn-secondary { background: #333; }
+        .btn-secondary:hover { background: #444; }
+        table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        th, td { text-align: left; padding: 8px; border-bottom: 1px solid #222; }
+        th { color: #888; font-weight: 500; }
+        .badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; }
+        .badge-green { background: #16a34a22; color: #16a34a; }
+        .badge-yellow { background: #ca8a0422; color: #ca8a04; }
+        .badge-blue { background: #2563eb22; color: #2563eb; }
+        .badge-red { background: #dc262622; color: #dc2626; }
+        pre { background: #0a0a0a; padding: 12px; border-radius: 6px; overflow-x: auto; font-size: 12px; line-height: 1.5; max-height: 500px; overflow-y: auto; white-space: pre-wrap; word-break: break-all; }
+        .empty { color: #555; text-align: center; padding: 32px; }
+        .row { display: flex; gap: 12px; align-items: center; }
+        .row > * { flex: 1; }
+        .tag { display: inline-block; background: #333; padding: 2px 8px; border-radius: 4px; font-size: 12px; margin: 2px; }
+    </style>
+</head>
+<body>
+    <nav>
+        <span class="brand">Raphie</span>
+        <a href="/" class="{% if active == 'dashboard' %}active{% endif %}">Dashboard</a>
+        <a href="/settings" class="{% if active == 'settings' %}active{% endif %}">Settings</a>
+        <a href="/triggers" class="{% if active == 'triggers' %}active{% endif %}">Triggers</a>
+        <a href="/instructions" class="{% if active == 'instructions' %}active{% endif %}">Instructions</a>
+        <a href="/knowledge" class="{% if active == 'knowledge' %}active{% endif %}">Knowledge</a>
+        <a href="/qa" class="{% if active == 'qa' %}active{% endif %}">Q&A</a>
+        <a href="/logs" class="{% if active == 'logs' %}active{% endif %}">Logs</a>
+        <a href="/logout">Logout</a>
+    </nav>
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

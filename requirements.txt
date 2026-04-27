@@ -2,7 +2,6 @@ discord.py-self
 colorama
 curl_cffi
 httpx
-asyncio
 python-dotenv
 pyYAML
 requests
@@ -10,3 +9,5 @@ openai
 fastapi
 uvicorn
 jinja2
+python-multipart
+itsdangerous

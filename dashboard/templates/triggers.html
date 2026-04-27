@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% set active = 'triggers' %}
+{% block content %}
+<h1>Trigger Words</h1>
+
+<form method="POST" action="/triggers">
+    <div class="card">
+        <h2>Greetings</h2>
+        <label>Comma-separated words that trigger a greeting response</label>
+        <input type="text" name="greetings" value="{{ triggers.greetings|join(', ') }}">
+
+        <h2>Casual Words</h2>
+        <label>Words that make the bot more likely to respond</label>
+        <input type="text" name="casual_words" value="{{ triggers.casual_words|join(', ') }}">
+
+        <h2>Direct Words</h2>
+        <label>Words addressed to the group (anyone, everybody, etc.)</label>
+        <input type="text" name="direct_words" value="{{ triggers.direct_words|join(', ') }}">
+
+        <h2>Question Indicators</h2>
+        <label>Words/punctuation that indicate a question</label>
+        <input type="text" name="question_indicators" value="{{ triggers.question_indicators|join(', ') }}">
+    </div>
+
+    <button type="submit">Save Triggers</button>
+</form>
+{% endblock %}
