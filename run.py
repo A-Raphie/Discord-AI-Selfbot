@@ -17,11 +17,15 @@ def start_dashboard_thread():
 
 
 def main():
+    import time
     dashboard_thread = threading.Thread(target=start_dashboard_thread, daemon=True)
     dashboard_thread.start()
+    time.sleep(1)
 
-    from simple_bot import client, TOKEN
-    client.run(TOKEN)
+    import simple_bot
+    simple_bot.init_ai_client()
+    simple_bot.logger.info("Connecting to Discord...")
+    simple_bot.client.run(simple_bot.TOKEN)
 
 
 if __name__ == "__main__":

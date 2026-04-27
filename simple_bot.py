@@ -988,14 +988,15 @@ async def maintenance_loop():
             logger.error(f"Error in maintenance_loop: {e}")
 
 # ============ MAIN ============
-try:
-    init_ai_client()
-    logger.info("Connecting to Discord...")
-    client.run(TOKEN)
-except KeyboardInterrupt:
-    logger.info("Shutting down...")
-    cleanup_pid()
-except Exception as e:
-    logger.error(f"Fatal error: {e}")
-    logger.exception("Full traceback:")
-    cleanup_pid()
+if __name__ == "__main__":
+    try:
+        init_ai_client()
+        logger.info("Connecting to Discord...")
+        client.run(TOKEN)
+    except KeyboardInterrupt:
+        logger.info("Shutting down...")
+        cleanup_pid()
+    except Exception as e:
+        logger.error(f"Fatal error: {e}")
+        logger.exception("Full traceback:")
+        cleanup_pid()
