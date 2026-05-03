@@ -67,7 +67,8 @@ def cleanup_pid():
     except:
         pass
 
-check_existing_bot()
+if not os.environ.get("RENDER"):
+    check_existing_bot()
 
 # ============ LOAD ENVIRONMENT ============
 load_dotenv(dotenv_path=os.path.join(os.path.dirname(os.path.abspath(__file__)), "config", ".env"))

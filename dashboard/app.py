@@ -314,7 +314,7 @@ async def health():
 def start_dashboard(port=None):
     import uvicorn
     if port is None:
-        port = get("dashboard.port", 8080)
+        port = int(os.environ.get("PORT", get("dashboard.port", 8080)))
     uvicorn.run(app, host="0.0.0.0", port=port, log_level="warning")
 
 
